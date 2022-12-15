@@ -1,3 +1,40 @@
+let capture;
+let posenet;
+let pose;
+let poses;
+
+function setup(){
+    createCanvas(800,600);
+    capture = createCapture(VIDEO);
+    capture.hide();
+    posenet=ml5.poseNet(capture,modelLoaded);
+    posenet.on('pose',receivedPoses);
+    if(poses.length>0){
+        pose=poses[0].pose;
+    }
+}
+
+function receivedPoses(poses){
+    console.log(poses);
+}
+
+function modelLoaded(){
+    console.log('Model has loaded');
+}
+
+function draw(){
+    image(capture,0,0,800,600);
+    //background(200);
+    if(pose){
+        FileList(255,0,0);
+    ellipse(pose.nose.x,pose.nose.y,64)
+
+    }
+    
+}
+
+
+/*
 let video;
 let poseNet;
 let pose;
@@ -30,3 +67,4 @@ function gotPoses(poses) {
     }
     
   }
+  */
