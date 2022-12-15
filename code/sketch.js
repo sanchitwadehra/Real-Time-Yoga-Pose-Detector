@@ -9,13 +9,13 @@ function setup(){
     capture.hide();
     posenet=ml5.poseNet(capture,modelLoaded);
     posenet.on('pose',receivedPoses);
-    if(poses.length>0){
-        pose=poses[0].pose;
-    }
 }
 
 function receivedPoses(poses){
     console.log(poses);
+    if(poses.length>0){
+        pose=poses[0].pose;
+    }
 }
 
 function modelLoaded(){
@@ -27,7 +27,7 @@ function draw(){
     //background(200);
     if(pose){
         FileList(255,0,0);
-    ellipse(pose.nose.x,pose.nose.y,64)
+    ellipse(pose.nose.x,pose.nose.y,64);
 
     }
     
