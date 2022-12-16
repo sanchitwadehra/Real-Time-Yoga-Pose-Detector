@@ -2,21 +2,65 @@ let video;
 let poseNet;
 let pose;
 let skeleton;
+let brain;
+
+let state = "waiting";
+let targetLabel;
+
+function keyPressed() {
+  if (key == "s") {
+    brain.saveData();
+  } else {
+    targetLabel = key;
+    console.log(targetLabel);
+    setTimeout(function () {
+      console.log("collecting");
+      state = "collecting";
+      setTimeout(function () {
+        console.log("not collecting");
+        state = "waiting";
+      }, 10000);
+    }, 10000);
+  }
+}
 
 function setup() {
-  createCanvas(800, 600);
+  createCanvas(640, 480);
   video = createCapture(VIDEO);
   video.hide();
   poseNet = ml5.poseNet(video, modelLoaded);
   poseNet.on("pose", gotPoses);
+
+  let options = {
+    inputs: 34,
+    outputs: 3,
+    task: "classification",
+    debug: true,
+  };
+  brain = ml5.neuralNetwork(options);
 }
 
 function gotPoses(poses) {
-  console.log(poses);
+  //console.log(poses);
 
   if (poses.length > 0) {
     pose = poses[0].pose;
     skeleton = poses[0].skeleton;
+
+    if (state == "collecting") {
+      let inputs = [];
+      for (let i = 0; i < pose.keypoints.length; i++) {
+        let x = pose.keypoints[i].position.x;
+        let y = pose.keypoints[i].position.y;
+        //let score = pose.keyPoints[i].score;
+        inputs.push(x);
+        inputs.push(y);
+        //inputs.push(score);
+      }
+      let target = [targetLabel];
+
+      brain.addData(inputs, target);
+    }
   }
 }
 
