@@ -38,10 +38,10 @@ function setup() {
     debug: true,
   };
   brain = ml5.neuralNetwork(options);
-  //brain.loadData("daw.json", dataReady);
+  brain.loadData("daw.json", dataReady);
 }
-/*
-function dataReay() {
+
+function dataReady() {
   brain.normalizeData();
   brain.train({ epochs: 100 }, finished);
 }
@@ -50,7 +50,7 @@ function finished() {
   console.log("model trained");
   brain.save();
 }
-*/
+
 function gotPoses(poses) {
   //console.log(poses);
 
