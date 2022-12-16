@@ -38,8 +38,18 @@ function setup() {
     debug: true,
   };
   brain = ml5.neuralNetwork(options);
+  //brain.loadData('daw.json',dataReady);
+}
+/*
+function dataReay(){
+    brain.train({epochs: 10},finished);
 }
 
+function finished(){
+    console.log('model trained');
+    brain.save();
+}
+*/
 function gotPoses(poses) {
   //console.log(poses);
 
