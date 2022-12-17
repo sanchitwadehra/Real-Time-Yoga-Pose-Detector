@@ -3,6 +3,7 @@ let poseNet;
 let pose;
 let skeleton;
 let brain;
+let a;
 
 let state = "waiting";
 let targetLabel;
@@ -38,7 +39,47 @@ function setup() {
     debug: true,
   };
   brain = ml5.neuralNetwork(options);
-  brain.loadData("daw.json", dataReady);
+  const modelInfo = {
+    model: "100 epoch model/model.json",
+    metadata: "100 epoch model/model_meta.json",
+    weights: "100 epoch model/model.weights.bin",
+  };
+  brain.load(modelInfo, brainLoaded);
+  //brain.loadData("daw.json", dataReady);
+}
+
+function brainLoaded() {
+  console.log("Pose Classification Ready!");
+  classifyPose();
+}
+
+function classifyPose() {
+  if (pose) {
+    let inputs = [];
+    for (let i = 0; i < pose.keypoints.length; i++) {
+      let x = pose.keypoints[i].position.x;
+      let y = pose.keypoints[i].position.y;
+      //let score = pose.keyPoints[i].score;
+      inputs.push(x);
+      inputs.push(y);
+      //inputs.push(score);
+    }
+
+    brain.classify(inputs, gotResult);
+  } else {
+    setTimeout(classifyPose, 100);
+  }
+}
+
+function gotResult(error, results) {
+  if (results[0].label == a) {
+    a = results[0].label;
+  } else {
+    //console.log(results);
+    console.log(results[0].label);
+    a = results[0].label;
+  }
+  classifyPose();
 }
 
 function dataReady() {
