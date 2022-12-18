@@ -92,7 +92,7 @@ function draw() {
       fill(0,255,255);
       ellipse(x, y, 16, 16);
     }
-    
+
     for (let i = 0; i < skeleton.length; i++) {
       let a = skeleton[i][0];
       let b = skeleton[i][1];
