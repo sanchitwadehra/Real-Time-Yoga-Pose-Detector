@@ -1,17 +1,14 @@
-<!-- Include the ml5.posenet library from a CDN -->
-<script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
-
-<!-- Create a form with a file input element -->
-<form>
-  <label for="file-input">Select an image file:</label>
-  <input type="file" id="file-input" accept="image/*">
-</form>
-
-<!-- Initialize a new PoseNet model and add an event listener to the file input element -->
-<script>
-  const model = ml5.poseNet();
-  const input = document.getElementById('file-input');
-  input.addEventListener('change', e => {
-    // code to handle the selected file goes here
-  });
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PoseNet Example</title>
+  <!-- Include the ml5.js library -->
+  <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+</head>
+<body>
+  <!-- Image to be processed by PoseNet -->
+  <img id="my-image" src="https://rawgit.com/sanchitwadehra/DT-Project/blob/main/dataset/anjaneyasana/2.jpg" alt="My Image">
+  <!-- Load the JavaScript file -->
+  <script src="sketch.js"></script>
+</body>
+</html>
