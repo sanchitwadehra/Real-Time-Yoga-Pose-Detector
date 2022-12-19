@@ -22,18 +22,21 @@ for subdir in os.listdir(main_dir):
         # Set the frame rate for the video
         frame_rate = 0.25
 
-        # Initialize a list to store the paths of the images
-        image_paths = []
+        # Initialize a list to store the images
+        images = []
 
         # Iterate over the images in the subdirectory
         for image_file in os.listdir(subdir_path):
             # Check if the image file is a JPEG or PNG
             if image_file.endswith('.jpg') or image_file.endswith('.png'):
-                # Add the image file path to the list
-                image_paths.append(os.path.join(subdir_path, image_file))
+                # Read the image file with color profile handling disabled
+                image = cv2.imread(os.path.join(subdir_path, image_file), cv2.IMREAD_IGNORE_ORIENTATION)
 
-        # Sort the list of image paths
-        image_paths.sort()
+                # Add the image to the list
+                images.append(image)
+
+        # Sort the list of images
+        images.sort()
 
         # Set the output video codec and the frame size
         fourcc = cv2.VideoWriter_fourcc(*'MJPG')
@@ -42,13 +45,9 @@ for subdir in os.listdir(main_dir):
         # Open the output video file
         out = cv2.VideoWriter(output_file, fourcc, frame_rate, frame_size)
 
-        # Iterate over the image paths and add them to the video
-        for image_path in image_paths:
-            # Read the image file
-            img = cv2.imread(image_path)
+        # Iterate over the images and add them to the video
+        for image in images:
+            out.write(image)
 
-            # Add the image to the video
-            out.write(img)
-
-        # Release the video writer
+        # Release the output video file
         out.release()
