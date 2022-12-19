@@ -36,7 +36,7 @@ for subdir in os.listdir(main_dir):
         image_paths.sort()
 
         # Set the output video codec and the frame size
-        fourcc = cv2.VideoWriter_fourcc(*'MP4V')
+        fourcc = cv2.VideoWriter_fourcc(*'MJPG')
         frame_size = (640, 480)
 
         # Open the output video file
