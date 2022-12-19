@@ -20,7 +20,7 @@ for subdir in os.listdir(main_dir):
         output_file = os.path.join(output_dir, subdir + '.mp4')
 
         # Set the frame rate for the video
-        frame_rate = 30
+        frame_rate = 0.25
 
         # Initialize a list to store the paths of the images
         image_paths = []
