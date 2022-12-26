@@ -3,6 +3,7 @@ let poseNet;
 let pose;
 let skeleton;
 let brain;
+let p=prompt("Enter a name of the asan :- ");
 
 let state = "waiting";
 let targetLabel;
@@ -11,7 +12,7 @@ function keyPressed() {
   if (key == "s") {
     brain.saveData();
   } else {
-    targetLabel = key;
+    targetLabel = p;
     console.log(targetLabel);
     setTimeout(function () {
       console.log("collecting");
