@@ -20,8 +20,8 @@ function keyPressed() {
       setTimeout(function () {
         console.log("not collecting");
         state = "waiting";
-      }, 10000);
-    }, 10000);
+      }, 15000);
+    }, 45000);
   }
 }
 
