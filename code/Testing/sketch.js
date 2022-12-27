@@ -19,7 +19,6 @@ function keyPressed() {
     brain.saveData("data");
   }
   if (key == "c") {
-    brain = ml5.neuralNetwork(OPTION);
     targetLabel = p;
     console.log(targetLabel);
     setTimeout(function () {
@@ -32,21 +31,18 @@ function keyPressed() {
     }, t1 * 1000);
   }
   if (key == "t") {
-    brain = ml5.neuralNetwork(OPTION);
-    brain.loadData("daw.json", dataReady);
+    function dataReady() {
+      brain.normalizeData();
+      brain.train({ epochs: 100 }, finished);
+    }
+
+    function finished() {
+      console.log("model trained");
+      brain.save();
+    }
   } else {
     console.log("Pressed the C key to collect data");
   }
-}
-
-function dataReady() {
-  brain.normalizeData();
-  brain.train({ epochs: 100 }, finished);
-}
-
-function finished() {
-  console.log("model trained");
-  brain.save();
 }
 
 function setup() {
@@ -62,6 +58,8 @@ function setup() {
     task: "classification",
     debug: true,
   };
+  brain = ml5.neuralNetwork(options);
+  brain.loadData("daw.json", keyPressed);
 }
 
 function gotPoses(poses) {
