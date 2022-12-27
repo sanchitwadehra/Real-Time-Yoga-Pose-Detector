@@ -16,7 +16,7 @@ let targetLabel;
 
 function keyPressed() {
   if (key == "s") {
-    brain.saveData();
+    brain.saveData("data");
   }
   if (key == "c") {
     targetLabel = p;
