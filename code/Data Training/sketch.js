@@ -6,7 +6,7 @@ let brain;
 
 let state = "waiting";
 let targetLabel;
-
+/*
 function keyPressed() {
   if (key == "s") {
     brain.saveData();
@@ -23,7 +23,7 @@ function keyPressed() {
     }, 10000);
   }
 }
-
+*/
 function setup() {
   createCanvas(640, 480);
   video = createCapture(VIDEO);
@@ -51,6 +51,10 @@ function finished() {
   brain.save();
 }
 
+function modelLoaded() {
+  console.log("poseNet ready");
+}
+
 function gotPoses(poses) {
   //console.log(poses);
 
@@ -74,10 +78,8 @@ function gotPoses(poses) {
     }
   }
 }
+/*
 
-function modelLoaded() {
-  console.log("poseNet ready");
-}
 
 function draw() {
   image(video, 0, 0);
@@ -112,3 +114,4 @@ function draw() {
     }
   }
 }
+*/
