@@ -3,23 +3,16 @@ let poseNet;
 let pose;
 let skeleton;
 let brain;
-let p = prompt("Enter a name of the asan :- ");
-let t1 = prompt(
-  "Enter the amoutn of Time(sec) you want between pressing the key and starting collecting tha data :- "
-);
-let t2 = prompt(
-  "Enter the amount of Time(sec) for which you want to collect data :- "
-);
+let a;
 
 let state = "waiting";
 let targetLabel;
 
 function keyPressed() {
   if (key == "s") {
-    brain.saveData("data");
-  }
-  if (key == "c") {
-    targetLabel = p;
+    brain.saveData();
+  } else {
+    targetLabel = key;
     console.log(targetLabel);
     setTimeout(function () {
       console.log("collecting");
@@ -27,21 +20,8 @@ function keyPressed() {
       setTimeout(function () {
         console.log("not collecting");
         state = "waiting";
-      }, t2 * 1000);
-    }, t1 * 1000);
-  }
-  if (key == "t") {
-    function dataReady() {
-      brain.normalizeData();
-      brain.train({ epochs: 100 }, finished);
-    }
-
-    function finished() {
-      console.log("model trained");
-      brain.save();
-    }
-  } else {
-    console.log("Pressed the C key to collect data");
+      }, 10000);
+    }, 10000);
   }
 }
 
@@ -59,7 +39,57 @@ function setup() {
     debug: true,
   };
   brain = ml5.neuralNetwork(options);
-  brain.loadData("daw.json", keyPressed);
+  const modelInfo = {
+    model: "500_epoch_sanchit/model.json",
+    metadata: "500_epoch_sanchit/model_meta.json",
+    weights: "500_epoch_sanchit/model.weights.bin",
+  };
+  brain.load(modelInfo, brainLoaded);
+  //brain.loadData("daw.json", dataReady);
+}
+
+function brainLoaded() {
+  console.log("Pose Classification Ready!");
+  classifyPose();
+}
+
+function classifyPose() {
+  if (pose) {
+    let inputs = [];
+    for (let i = 0; i < pose.keypoints.length; i++) {
+      let x = pose.keypoints[i].position.x;
+      let y = pose.keypoints[i].position.y;
+      //let score = pose.keyPoints[i].score;
+      inputs.push(x);
+      inputs.push(y);
+      //inputs.push(score);
+    }
+
+    brain.classify(inputs, gotResult);
+  } else {
+    setTimeout(classifyPose, 1000);
+  }
+}
+
+function gotResult(error, results) {
+  if (results[0].label == a) {
+    a = results[0].label;
+  } else {
+    console.log(results);
+    console.log(results[0].label);
+    a = results[0].label;
+  }
+  classifyPose();
+}
+
+function dataReady() {
+  brain.normalizeData();
+  brain.train({ epochs: 100 }, finished);
+}
+
+function finished() {
+  console.log("model trained");
+  brain.save();
 }
 
 function gotPoses(poses) {
@@ -102,24 +132,23 @@ function draw() {
     let eyeR = pose.rightEye;
     let eyeL = pose.leftEye;
     let d = dist(eyeR.x, eyeR.y, eyeL.x, eyeL.y);
-    fill(0, 255, 255);
+    fill(0,255,255);
     ellipse(pose.nose.x, pose.nose.y, d / 2);
-    fill(0, 255, 255);
+    fill(0,255,255);
     ellipse(pose.rightWrist.x, pose.rightWrist.y, 16);
     ellipse(pose.leftWrist.x, pose.leftWrist.y, 16);
 
     for (let i = 0; i < pose.keypoints.length; i++) {
       let x = pose.keypoints[i].position.x;
       let y = pose.keypoints[i].position.y;
-      fill(0, 255, 255);
+      fill(0,255,255);
       ellipse(x, y, 16, 16);
     }
-
     for (let i = 0; i < skeleton.length; i++) {
       let a = skeleton[i][0];
       let b = skeleton[i][1];
       strokeWeight(2);
-      stroke(0, 255, 255);
+      stroke(0,255,255);
       line(a.position.x, a.position.y, b.position.x, b.position.y);
     }
   }
