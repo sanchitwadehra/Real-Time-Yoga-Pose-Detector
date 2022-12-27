@@ -38,7 +38,7 @@ function setup() {
     debug: true,
   };
   brain = ml5.neuralNetwork(options);
-  brain.loadData("daw.json", dataReady);
+  brain.loadData("sanchit_all_poses.json", dataReady);
 }
 
 function dataReady() {
