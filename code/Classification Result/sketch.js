@@ -67,7 +67,7 @@ function classifyPose() {
 
     brain.classify(inputs, gotResult);
   } else {
-    setTimeout(classifyPose, 100);
+    setTimeout(classifyPose, 1000);
   }
 }
 
@@ -75,7 +75,7 @@ function gotResult(error, results) {
   if (results[0].label == a) {
     a = results[0].label;
   } else {
-    //console.log(results);
+    console.log(results);
     console.log(results[0].label);
     a = results[0].label;
   }
