@@ -3,7 +3,13 @@ let poseNet;
 let pose;
 let skeleton;
 let brain;
-let p=prompt("Enter a name of the asan :- ");
+let p = prompt("Enter a name of the asan :- ");
+let t1 = prompt(
+  "Enter the amoutn of Time(sec) you want between pressing the key and starting collecting tha data :- "
+);
+let t2 = prompt(
+  "Enter the amount of Time(sec) for which you want to collect data :- "
+);
 
 let state = "waiting";
 let targetLabel;
@@ -11,7 +17,8 @@ let targetLabel;
 function keyPressed() {
   if (key == "s") {
     brain.saveData();
-  } else {
+  }
+  if (key == "c") {
     targetLabel = p;
     console.log(targetLabel);
     setTimeout(function () {
@@ -20,8 +27,8 @@ function keyPressed() {
       setTimeout(function () {
         console.log("not collecting");
         state = "waiting";
-      }, 15000);
-    }, 45000);
+      }, t2 * 1000);
+    }, t1 * 1000);
   }
 }
 
@@ -81,16 +88,16 @@ function draw() {
     let eyeR = pose.rightEye;
     let eyeL = pose.leftEye;
     let d = dist(eyeR.x, eyeR.y, eyeL.x, eyeL.y);
-    fill(0,255,255);
+    fill(0, 255, 255);
     ellipse(pose.nose.x, pose.nose.y, d / 2);
-    fill(0,255,255);
+    fill(0, 255, 255);
     ellipse(pose.rightWrist.x, pose.rightWrist.y, 16);
     ellipse(pose.leftWrist.x, pose.leftWrist.y, 16);
 
     for (let i = 0; i < pose.keypoints.length; i++) {
       let x = pose.keypoints[i].position.x;
       let y = pose.keypoints[i].position.y;
-      fill(0,255,255);
+      fill(0, 255, 255);
       ellipse(x, y, 16, 16);
     }
 
@@ -98,7 +105,7 @@ function draw() {
       let a = skeleton[i][0];
       let b = skeleton[i][1];
       strokeWeight(2);
-      stroke(0,255,255);
+      stroke(0, 255, 255);
       line(a.position.x, a.position.y, b.position.x, b.position.y);
     }
   }
