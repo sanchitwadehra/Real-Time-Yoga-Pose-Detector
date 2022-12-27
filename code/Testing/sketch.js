@@ -29,6 +29,8 @@ function keyPressed() {
         state = "waiting";
       }, t2 * 1000);
     }, t1 * 1000);
+  } else {
+    comsole.log("Pressed the C key to collect data");
   }
 }
 
