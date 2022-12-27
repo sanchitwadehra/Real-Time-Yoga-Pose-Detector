@@ -40,9 +40,9 @@ function setup() {
   };
   brain = ml5.neuralNetwork(options);
   const modelInfo = {
-    model: "500_epoch_sanchit/model.json",
-    metadata: "500_epoch_sanchit/model_meta.json",
-    weights: "500_epoch_sanchit/model.weights.bin",
+    model: "500_epoch_all/model.json",
+    metadata: "500_epoch_all/model_meta.json",
+    weights: "500_epoch_all/model.weights.bin",
   };
   brain.load(modelInfo, brainLoaded);
   //brain.loadData("daw.json", dataReady);
