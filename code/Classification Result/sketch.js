@@ -21,7 +21,7 @@ function processSelection() {
   // Do something with the selected value
   console.log("You selected: " + selectedValue);
 }
-
+/*
 function keyPressed() {
   if (key == "s") {
     brain.saveData();
@@ -38,7 +38,7 @@ function keyPressed() {
     }, 10000);
   }
 }
-
+*/
 function setup() {
   createCanvas(640, 480);
   video = createCapture(VIDEO);
@@ -81,12 +81,12 @@ function classifyPose() {
 
     brain.classify(inputs, gotResult);
   } else {
-    setTimeout(classifyPose, 5000);
+    setTimeout(classifyPose, 100);
   }
 }
 
 function gotResult(error, results) {
-  selectedValue='chaturanga dandasana';
+  selectedValue='uttana shishoasana';
 //if(selectedValue != 0){}
 k = selectedValue;
   for(i=0;i<20;i++){
@@ -98,6 +98,14 @@ k = selectedValue;
 
   //k=selectedLabel;
   console.log(results[selectedLabel].confidence);
+
+// Set the value of the range element to the confidence value
+document.getElementById("myRange").value = results[selectedLabel].confidence;
+
+// Update the label with the confidence value
+document.getElementById("rangeLabel").innerHTML = results[selectedLabel].confidence;
+
+
 /*
   if (results[0].label == a) {
     a = results[0].label;
