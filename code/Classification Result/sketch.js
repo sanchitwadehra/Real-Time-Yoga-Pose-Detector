@@ -105,6 +105,21 @@ document.getElementById("myRange").value = results[selectedLabel].confidence;
 // Update the label with the confidence value
 document.getElementById("rangeLabel").innerHTML = results[selectedLabel].confidence;
 
+// Check if the confidence value is greater than 0.5
+if (results[selectedLabel].confidence > 0.5) {
+  // Create a new Audio object
+  var audio = new Audio();
+
+  // Set the audio file to play
+  audio.src = "ring_sound.mp3";
+
+  // Set the volume to full (1)
+  audio.volume = 1;
+
+  // Play the audio file
+  audio.play();
+}
+
 
 /*
   if (results[0].label == a) {
