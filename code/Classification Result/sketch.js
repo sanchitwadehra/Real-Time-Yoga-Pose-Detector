@@ -96,8 +96,8 @@ k = selectedValue;
   }
   //}
 
-  k=selectedLabel;
-  console.log(results[k].confidence);
+  //k=selectedLabel;
+  console.log(results[selectedLabel].confidence);
 /*
   if (results[0].label == a) {
     a = results[0].label;
