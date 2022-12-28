@@ -4,7 +4,8 @@ let pose;
 let skeleton;
 let brain;
 let a,i;
-let selectedLabel;
+var k;
+var selectedLabel;
 
 let state = "waiting";
 let targetLabel;
@@ -14,6 +15,7 @@ function processSelection() {
   var select = document.getElementById("mySelect");
   
   // Get the selected option's value
+  
   var selectedValue = select.value;
   
   // Do something with the selected value
@@ -84,14 +86,18 @@ function classifyPose() {
 }
 
 function gotResult(error, results) {
-/*
+  //selectedValue=0;
+//if(selectedValue != 0){
+k = selectedValue;
   for(i=0;i<20;i++){
-    if(result[i].label == selectedValue){
+    if(results[i].label == k){
       selectedLabel=i;
-      console.log(results[i].confidence);
     }
-  }
-*/
+  //}
+  //k=selectedLabel;
+  console.log(results[selectedLabel].confidence);
+}
+/*
   if (results[0].label == a) {
     a = results[0].label;
   } else {
@@ -99,6 +105,7 @@ function gotResult(error, results) {
     console.log(results[0].label);
     a = results[0].label;
   }
+  */
   classifyPose();
 }
 
