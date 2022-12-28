@@ -86,17 +86,18 @@ function classifyPose() {
 }
 
 function gotResult(error, results) {
-  //selectedValue=0;
-//if(selectedValue != 0){
+  selectedValue='chaturanga dandasana';
+//if(selectedValue != 0){}
 k = selectedValue;
   for(i=0;i<20;i++){
     if(results[i].label == k){
       selectedLabel=i;
     }
+  }
   //}
-  //k=selectedLabel;
-  console.log(results[selectedLabel].confidence);
-}
+
+  k=selectedLabel;
+  console.log(results[k].confidence);
 /*
   if (results[0].label == a) {
     a = results[0].label;
