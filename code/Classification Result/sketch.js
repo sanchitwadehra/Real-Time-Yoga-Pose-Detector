@@ -3,10 +3,22 @@ let poseNet;
 let pose;
 let skeleton;
 let brain;
-let a;
+let a,i;
+let selectedLabel;
 
 let state = "waiting";
 let targetLabel;
+
+function processSelection() {
+  // Get the selection element
+  var select = document.getElementById("mySelect");
+  
+  // Get the selected option's value
+  var selectedValue = select.value;
+  
+  // Do something with the selected value
+  console.log("You selected: " + selectedValue);
+}
 
 function keyPressed() {
   if (key == "s") {
@@ -67,11 +79,19 @@ function classifyPose() {
 
     brain.classify(inputs, gotResult);
   } else {
-    setTimeout(classifyPose, 1000);
+    setTimeout(classifyPose, 5000);
   }
 }
 
 function gotResult(error, results) {
+/*
+  for(i=0;i<20;i++){
+    if(result[i].label == selectedValue){
+      selectedLabel=i;
+      console.log(results[i].confidence);
+    }
+  }
+*/
   if (results[0].label == a) {
     a = results[0].label;
   } else {
