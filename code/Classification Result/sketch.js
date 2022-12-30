@@ -6,10 +6,11 @@ let brain;
 let a,i;
 var k;
 var selectedLabel;
-
+let o=prompt("Please enter the asana you want help with :- ");
 let state = "waiting";
 let targetLabel;
 
+/*
 function processSelection() {
   // Get the selection element
   var select = document.getElementById("mySelect");
@@ -21,6 +22,7 @@ function processSelection() {
   // Do something with the selected value
   console.log("You selected: " + selectedValue);
 }
+*/
 /*
 function keyPressed() {
   if (key == "s") {
@@ -86,7 +88,8 @@ function classifyPose() {
 }
 
 function gotResult(error, results) {
-  selectedValue='uttana shishoasana';
+  selectedValue=o;
+  //selectedValue='uttana shishoasana';
 //if(selectedValue != 0){}
 k = selectedValue;
   for(i=0;i<20;i++){
