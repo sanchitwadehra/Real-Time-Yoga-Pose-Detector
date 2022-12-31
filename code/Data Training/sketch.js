@@ -25,12 +25,15 @@ function keyPressed() {
 }
 */
 function setup() {
+  /*
   createCanvas(640, 480);
   video = createCapture(VIDEO);
   video.hide();
+  */
+  /*
   poseNet = ml5.poseNet(video, modelLoaded);
   poseNet.on("pose", gotPoses);
-
+*/
   let options = {
     inputs: 34,
     outputs: 3,
@@ -54,7 +57,7 @@ function finished() {
 function modelLoaded() {
   console.log("poseNet ready");
 }
-
+/*
 function gotPoses(poses) {
   //console.log(poses);
 
