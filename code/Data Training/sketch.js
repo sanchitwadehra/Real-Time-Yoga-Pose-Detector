@@ -53,10 +53,11 @@ function finished() {
   console.log("model trained");
   brain.save();
 }
-
+/*
 function modelLoaded() {
   console.log("poseNet ready");
 }
+*/
 /*
 function gotPoses(poses) {
   //console.log(poses);
