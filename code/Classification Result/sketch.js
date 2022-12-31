@@ -3,10 +3,10 @@ let poseNet;
 let pose;
 let skeleton;
 let brain;
-let a,i;
+let a, i;
 var k;
 var selectedLabel;
-let o=prompt("Please enter the asana you want help with :- ");
+let o = prompt("Please enter the asana you want help with :- ");
 let state = "waiting";
 let targetLabel;
 
@@ -88,13 +88,13 @@ function classifyPose() {
 }
 
 function gotResult(error, results) {
-  selectedValue=o;
+  selectedValue = o;
   //selectedValue='uttana shishoasana';
-//if(selectedValue != 0){}
-k = selectedValue;
-  for(i=0;i<20;i++){
-    if(results[i].label == k){
-      selectedLabel=i;
+  //if(selectedValue != 0){}
+  k = selectedValue;
+  for (i = 0; i < 20; i++) {
+    if (results[i].label == k) {
+      selectedLabel = i;
     }
   }
   //}
@@ -102,29 +102,29 @@ k = selectedValue;
   //k=selectedLabel;
   console.log(results[selectedLabel].confidence);
 
-// Set the value of the range element to the confidence value
-document.getElementById("myRange").value = results[selectedLabel].confidence;
+  // Set the value of the range element to the confidence value
+  document.getElementById("myRange").value = results[selectedLabel].confidence;
 
-// Update the label with the confidence value
-document.getElementById("rangeLabel").innerHTML = results[selectedLabel].confidence;
+  // Update the label with the confidence value
+  document.getElementById("rangeLabel").innerHTML =
+    results[selectedLabel].confidence;
 
-// Check if the confidence value is greater than 0.5
-if (results[selectedLabel].confidence > 0.5) {
-  // Create a new Audio object
-  var audio = new Audio();
+  // Check if the confidence value is greater than 0.5
+  if (results[selectedLabel].confidence > 0.5) {
+    // Create a new Audio object
+    var audio = new Audio();
 
-  // Set the audio file to play
-  audio.src = "ring_sound.mp3";
+    // Set the audio file to play
+    audio.src = "ring_sound.mp3";
 
-  // Set the volume to full (1)
-  audio.volume = 1;
+    // Set the volume to full (1)
+    audio.volume = 1;
 
-  // Play the audio file
-  audio.play();
-}
+    // Play the audio file
+    audio.play();
+  }
 
-
-/*
+  /*
   if (results[0].label == a) {
     a = results[0].label;
   } else {
@@ -135,7 +135,7 @@ if (results[selectedLabel].confidence > 0.5) {
   */
   classifyPose();
 }
-
+/*
 function dataReady() {
   brain.normalizeData();
   brain.train({ epochs: 100 }, finished);
@@ -145,7 +145,7 @@ function finished() {
   console.log("model trained");
   brain.save();
 }
-
+*/
 function gotPoses(poses) {
   //console.log(poses);
 
@@ -186,23 +186,23 @@ function draw() {
     let eyeR = pose.rightEye;
     let eyeL = pose.leftEye;
     let d = dist(eyeR.x, eyeR.y, eyeL.x, eyeL.y);
-    fill(0,255,255);
+    fill(0, 255, 255);
     ellipse(pose.nose.x, pose.nose.y, d / 2);
-    fill(0,255,255);
+    fill(0, 255, 255);
     ellipse(pose.rightWrist.x, pose.rightWrist.y, 16);
     ellipse(pose.leftWrist.x, pose.leftWrist.y, 16);
 
     for (let i = 0; i < pose.keypoints.length; i++) {
       let x = pose.keypoints[i].position.x;
       let y = pose.keypoints[i].position.y;
-      fill(0,255,255);
+      fill(0, 255, 255);
       ellipse(x, y, 16, 16);
     }
     for (let i = 0; i < skeleton.length; i++) {
       let a = skeleton[i][0];
       let b = skeleton[i][1];
       strokeWeight(2);
-      stroke(0,255,255);
+      stroke(0, 255, 255);
       line(a.position.x, a.position.y, b.position.x, b.position.y);
     }
   }
